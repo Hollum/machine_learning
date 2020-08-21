@@ -13,7 +13,6 @@ matplotlib.rcParams.update({'font.size': 11})
 W_init = np.array([[-0.2], [0.53]])
 b_init = np.array([[3.1]])
 
-
 # Visualize result
 data = pd.read_csv("./data/day_length_weight.csv")
 
@@ -31,21 +30,26 @@ for i in range(weight.__len__()):
     train_y.append(temp_y)
 
 """
-Should be????
+    SHOULD BE???
     temp_x = [weight[i], length[i]]
     temp_y = [day[i]]
     
     train_x.append(temp_x)
     train_y.append(temp_y)
+    
+    INSTEAD OF
+    temp_x = [weight[i], length[i]]
+    temp_y = [day[i]]
+
+    train_x.append(temp_x)
+    train_y.append(temp_y)
 """
-
-
 
 
 class LinearRegressionModel:
     def __init__(self):
         # Model variables
-        self.W = torch.tensor([[0.0],[0.0]], requires_grad=True)  # requires_grad enables calculation of gradients
+        self.W = torch.tensor([[0.0], [0.0]], requires_grad=True)  # requires_grad enables calculation of gradients
         self.b = torch.tensor([[0.0]], requires_grad=True)
 
     # predictor
@@ -71,11 +75,10 @@ y_train = torch.tensor(train_y)  # y_train = [[5], [3.5], [3], [4], [3], [1.5], 
 
 # Optimize: adjust W and b to minimize loss using stochastic gradient descent
 optimizer = torch.optim.SGD([model.b, model.W], 0.0000001)
-for epoch in range(75000):
+for epoch in range(750000):
     model.loss(x_train, y_train).backward()  # Compute loss gradients
     optimizer.step()  # Perform optimization by adjusting W and b,
     optimizer.zero_grad()  # Clear gradients for next step
-
 
 print("W = %s, b = %s, loss = %s" % (model.W, model.b, model.loss(x_train, y_train)))
 
@@ -87,6 +90,5 @@ fig.scatter(day, length, model.f(x_train).detach(), label='$y = f(x) = xW+b$')
 fig.set_xlabel('Day')
 fig.set_ylabel('Length')
 fig.set_zlabel('Weight')
-
 
 plt.show()
