@@ -46,11 +46,13 @@ for epoch in range(75000):
 print("W = %s, b = %s, loss = %s" % (model.W, model.b, model.loss(x_train, y_train)))
 
 # Visualize result
+
 plt.plot(x_train, y_train, 'o', label='$(\\hat x^{(i)},\\hat y^{(i)})$')
 plt.xlabel('x')
 plt.ylabel('y')
 x = torch.tensor([[torch.min(x_train)], [torch.mean(x_train)], [torch.max(x_train)]])
+plt.scatter(x_train, model.f(x_train).detach(), label='$y = f(x) = 20*sigmoid(xW+b)+31$', color="red")
 
-plt.plot(x, model.f(x).detach(), label='$y = f(x) = 20*sigmoid(xW+b)+31$')
+
 plt.legend()
 plt.show()

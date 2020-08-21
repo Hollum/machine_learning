@@ -29,23 +29,6 @@ for i in range(weight.__len__()):
     train_x.append(temp_x)
     train_y.append(temp_y)
 
-"""
-    SHOULD BE???
-    temp_x = [weight[i], length[i]]
-    temp_y = [day[i]]
-    
-    train_x.append(temp_x)
-    train_y.append(temp_y)
-    
-    INSTEAD OF
-    temp_x = [weight[i], length[i]]
-    temp_y = [day[i]]
-
-    train_x.append(temp_x)
-    train_y.append(temp_y)
-"""
-
-
 class LinearRegressionModel:
     def __init__(self):
         # Model variables
@@ -64,18 +47,12 @@ class LinearRegressionModel:
 model = LinearRegressionModel()
 
 # observed/training input and output
-
-
-"""
-x_train = np.array(train_x)
-y_train = np.array(train_y)
-"""
 x_train = torch.tensor(train_x)  # x_train = [[1], [1.5], [2], [3], [4], [5], [6]]
 y_train = torch.tensor(train_y)  # y_train = [[5], [3.5], [3], [4], [3], [1.5], [2]]
 
 # Optimize: adjust W and b to minimize loss using stochastic gradient descent
-optimizer = torch.optim.SGD([model.b, model.W], 0.0000001)
-for epoch in range(750000):
+optimizer = torch.optim.SGD([model.b, model.W], 0.0001)
+for epoch in range(7500):
     model.loss(x_train, y_train).backward()  # Compute loss gradients
     optimizer.step()  # Perform optimization by adjusting W and b,
     optimizer.zero_grad()  # Clear gradients for next step
@@ -85,7 +62,7 @@ print("W = %s, b = %s, loss = %s" % (model.W, model.b, model.loss(x_train, y_tra
 fig = plt.figure().gca(projection='3d')
 
 fig.scatter(day, length, weight, c='red')
-fig.scatter(day, length, model.f(x_train).detach(), label='$y = f(x) = xW+b$')
+fig.scatter(model.f(x_train).detach(), length, weight, label='$y = f(x) = xW+b$')
 
 fig.set_xlabel('Day')
 fig.set_ylabel('Length')
