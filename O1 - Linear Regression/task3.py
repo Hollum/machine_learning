@@ -55,4 +55,5 @@ plt.scatter(x_train, model.f(x_train).detach(), label='$y = f(x) = 20*sigmoid(xW
 
 
 plt.legend()
+plt.savefig("task3")
 plt.show()

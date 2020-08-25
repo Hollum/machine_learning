@@ -68,4 +68,6 @@ fig.set_xlabel('Day')
 fig.set_ylabel('Length')
 fig.set_zlabel('Weight')
 
+plt.savefig("task2")
 plt.show()
+

@@ -48,4 +48,6 @@ plt.ylabel('y')
 x = torch.tensor([[torch.min(x_train)], [torch.max(x_train)]])  # x = [[1], [6]]]
 plt.plot(x, model.f(x).detach(), label='$y = f(x) = xW+b$')
 plt.legend()
+
+plt.savefig("task1")
 plt.show()
