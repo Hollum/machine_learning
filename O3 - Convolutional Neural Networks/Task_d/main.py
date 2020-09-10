@@ -32,12 +32,16 @@ class ConvolutionalNeuralNetworkModel(nn.Module):
         # Model layers (includes initialized model variables):
         self.conv = nn.Conv2d(1, 32, kernel_size=5, padding=2)
         self.pool = nn.MaxPool2d(kernel_size=2)
-        self.dense = nn.Linear(32 * 14 * 14, 10)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=5, padding=2)
+        self.pool2 = nn.MaxPool2d(kernel_size=2)
+        self.dense2 = nn.Linear(64 * 7 * 7, 10)
 
     def logits(self, x):
         x = self.conv(x)
         x = self.pool(x)
-        return self.dense(x.reshape(-1, 32 * 14 * 14))
+        x = self.conv2(x)
+        x = self.pool2(x)
+        return self.dense2(x.reshape(-1, 64 * 7 * 7))
 
     # Predictor
     def f(self, x):
@@ -63,3 +67,6 @@ for epoch in range(20):
         optimizer.zero_grad()  # Clear gradients for next step
 
     print("accuracy = %s" % model.accuracy(x_test, y_test))
+
+#       epoch 1: accuracy = tensor(0.8746)
+#       epoch 2: accuracy = tensor(0.8857)
