@@ -105,5 +105,5 @@ for epoch in range(epochs):
 
     if epoch % 10 == 9:
         model.reset(1)
-        test_string = 'so'
+        test_string = 'rt'
         print(decode_emoji(model.f(torch.tensor([encode_string(test_string)]).transpose(1, 0))))
